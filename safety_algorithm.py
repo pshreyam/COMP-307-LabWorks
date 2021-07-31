@@ -1,5 +1,7 @@
 """ Implementation of Safety Algorithm """
 
+import sys
+
 def greater_than(first_list, second_list):
     for i in range(len(first_list)):
         if first_list[i] > second_list[i]:
@@ -10,22 +12,24 @@ def greater_than(first_list, second_list):
 m = 4
 
 # Number of processes
-n = 5
+n = 6
 
-available = [1, 5, 2, 0]
+available = [3, 1, 2, 1]
 allocation = [
-    [0, 0, 1, 2],
-    [1, 0, 0, 0],
-    [1, 3, 5, 4],
-    [0, 6, 3, 2],
-    [0, 0, 1, 4],
+    [2, 0, 2, 1],
+    [0, 1, 1, 1],
+    [4, 1, 0, 2],
+    [1, 0, 0, 1],
+    [1, 1, 0, 0],
+    [4, 2, 4, 4]
 ]
 maximum_resources = [
-    [0, 0, 1, 2],
-    [1, 7, 5, 0],
-    [2, 3, 5, 6],
-    [0, 6, 5, 2],
-    [0, 6, 5, 6]
+    [9, 5, 5, 5],
+    [2, 2, 3, 3],
+    [7, 5, 4, 4],
+    [3, 3, 3, 2],
+    [5, 2, 2, 1],
+    [7, 6, 7, 7]
 ]
 
 need = [[0 for _ in range(m)] for _ in range(n)] 
@@ -37,6 +41,7 @@ for i in range(n):
 safe_sequence = []
 
 finish = [False for _ in range(n)]
+finish_preserved = finish[:]
 work = available[:]
 
 print(f"\nAvailable = {available}")
@@ -69,3 +74,9 @@ while not all(finish):
         else:
             print(f"Process P_{i} has to wait.\n")
             print("-"*50, "\n")
+        
+        if i == 5 and finish == finish_preserved:
+            print("Safe state cannot be achieved.")
+            sys.exit(0)
+
+        finish_preserved = finish[:]
