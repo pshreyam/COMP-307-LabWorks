@@ -32,7 +32,7 @@ def safe_sequence(m, n, available, allocation, maximum_resources, need):
                 continue
             print(f"For P_{i},\n")
             print(f"(a) Finish[{i}] = {finish[i]}")
-            print(f"(b) Need[{i}] <= Work? : {not greater_than(need[i], work)}\n")
+            print(f"(b) Need[{i}] {'>' if greater_than(need[i], work) else '<='} Work\n")
             if not finish[i] and not greater_than(need[i], work): 
                 print(f"Work = Work + Allocation[{i}]")
                 print(f"     = {work} + {allocation[i]}")
@@ -60,24 +60,22 @@ if __name__ == "__main__":
     m = 4
 
     # Number of processes
-    n = 6
+    n = 5
 
-    available = [3, 1, 2, 1]
+    available = [1, 5, 2, 0]
     allocation = [
-        [2, 0, 2, 1],
-        [0, 1, 1, 1],
-        [4, 1, 0, 2],
-        [1, 0, 0, 1],
-        [1, 1, 0, 0],
-        [4, 2, 4, 4]
+        [0, 0, 1, 2],
+        [1, 0, 0, 0],
+        [1, 3, 5, 4],
+        [0, 6, 3, 2],
+        [0, 0, 1, 4]
     ]
     maximum_resources = [
-        [9, 5, 5, 5],
-        [2, 2, 3, 3],
-        [7, 5, 4, 4],
-        [3, 3, 3, 2],
-        [5, 2, 2, 1],
-        [7, 6, 7, 7]
+        [0, 0, 1, 2],
+        [1, 7, 5, 0],
+        [2, 3, 5, 6],
+        [0, 6, 5, 2],
+        [0, 6, 5, 6]
     ]
 
     need = [[0 for _ in range(m)] for _ in range(n)] 
